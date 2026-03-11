@@ -1,16 +1,22 @@
 workflows:
   ios-selfsigned:
-    name: iOS SelfSigned
+    name: iOS SelfSigned Build
+    max_build_duration: 60
     environment:
       flutter: stable
+      xcode: latest
+      cocoapods: default
+      vars:
+        CERT_PASSWORD: Encrypted(your_password_here)
     scripts:
-      - flutter pub get
-      - flutter build ios --release --no-codesign
+      - name: Get dependencies
+        script: flutter pub get
+      - name: Build iOS IPA without signing
+        script: flutter build ios --release --no-codesign
     artifacts:
       - build/ios/ipa/*.ipa
-    publishing:
-      - internal
     code_signing:
-      provisioning_profile_path: ios/Runner/MyProfile.mobileprovision
-      certificate_path: ios/Runner/MyCert.p12
-      certificate_passphrase: $CERT_PASSWORD
+      ios:
+        provisioning_profile_path: ios/Runner/MyProfile.mobileprovision
+        certificate_path: ios/Runner/MyCert.p12
+        certificate_password: $CERT_PASSWORD
