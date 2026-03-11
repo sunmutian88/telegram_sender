@@ -1,16 +1,16 @@
 workflows:
-  ios_web_only:
-    name: iOS & Web Build
-    max_build_duration: 60
+  ios-selfsigned:
+    name: iOS SelfSigned
     environment:
       flutter: stable
     scripts:
-      - name: Get Dependencies
-        script: flutter pub get
-      - name: iOS Build
-        script: flutter build ios --release
-      - name: Web Build
-        script: flutter build web --release
+      - flutter pub get
+      - flutter build ios --release --no-codesign
     artifacts:
-      - build/ios/iphoneos/Runner.app
-      - build/web/**
+      - build/ios/ipa/*.ipa
+    publishing:
+      - internal
+    code_signing:
+      provisioning_profile_path: ios/Runner/MyProfile.mobileprovision
+      certificate_path: ios/Runner/MyCert.p12
+      certificate_passphrase: $CERT_PASSWORD
