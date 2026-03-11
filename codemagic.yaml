@@ -11,12 +11,12 @@ workflows:
     scripts:
       - name: Get dependencies
         script: flutter pub get
-      - name: Build iOS IPA without signing
+      - name: Build IPA without codesign
         script: flutter build ios --release --no-codesign
     artifacts:
       - build/ios/ipa/*.ipa
     code_signing:
       ios:
-        provisioning_profile_path: ios/Runner/MyProfile.mobileprovision
         certificate_path: ios/Runner/MyCert.p12
         certificate_password: $CERT_PASSWORD
+        provisioning_profile_path: ios/Runner/MyProfile.mobileprovision
