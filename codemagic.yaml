@@ -1,14 +1,12 @@
 workflows:
-  ios-simulator:
-    name: iOS Simulator
+  android-build:
+    name: Android Build
     instance_type: mac_mini
     environment:
       flutter_channel: stable
       flutter_version: 3.41.4
     scripts:
       - name: Install dependencies
-        script: |
-          flutter pub get
-      - name: Build for simulator
-        script: |
-          flutter build ios --simulator
+        script: flutter pub get
+      - name: Build APK
+        script: flutter build apk --release
