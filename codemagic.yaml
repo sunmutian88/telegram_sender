@@ -2,7 +2,7 @@ workflows:
   ios-workflow:  
     name: iOS Build Pipeline  
     environment:  
-      xcode: 13.2.1  
+      xcode: latest 
       cocoapods: default  
     scripts:  
       - name: Flutter依赖安装  
